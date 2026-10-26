@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useSimulation } from '../context/SimulationContext';
-import { Activity, ArrowDown, Cpu, HardDrive, Database } from 'lucide-react';
+import { Activity, ArrowDown, Cpu, Database } from 'lucide-react';
 
 export default function BusPage() {
     const { state, dispatch } = useSimulation();
@@ -51,7 +51,7 @@ export default function BusPage() {
     const [requesters, setRequesters] = useState([
        { id: 'memory', name: 'Memory', icon: Database, state: 'IDLE' },
        { id: 'processor', name: 'Processor', icon: Cpu, state: 'IDLE' },
-       { id: 'io', name: 'I/O Interface', icon: HardDrive, state: 'IDLE' }
+       { id: 'io', name: 'I/O Interface', icon: Database, state: 'IDLE' }
     ]);
 
     const handleRequest = (id) => {
@@ -119,24 +119,30 @@ export default function BusPage() {
         <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-8 p-6 max-w-7xl mx-auto text-slate-900"
+            className="space-y-8 p-6 max-w-7xl mx-auto text-slate-200"
         >
             {/* Header */}
             <div className="flex items-center space-x-4 mb-8">
-                <Activity className="w-8 h-8 text-indigo-600" />
-                <h1 className="text-3xl font-bold section-title text-slate-900">Bus Architecture & Data Transfer</h1>
+                <Activity className="w-8 h-8 text-violet-400" />
+                <h1 className="text-3xl font-bold section-title text-white">Bus Architecture & Data Transfer</h1>
             </div>
 
             {/* Section 1: Bus & Data Transfer Visualization */}
-            <section className="bg-white border-slate-200 shadow-sm border p-6 rounded-xl">
-                <h2 className="text-xl font-bold text-slate-900 mb-6">Data Transfer Visualization</h2>
+            <section 
+                className="p-6 rounded-xl border backdrop-blur-md"
+                style={{ background: 'rgba(15, 18, 35, 0.8)', border: '1px solid rgba(255, 255, 255, 0.08)' }}
+            >
+                <h2 className="text-xl font-bold text-white mb-6">Data Transfer Visualization</h2>
                 <div className="flex flex-col md:flex-row items-stretch justify-between gap-6 mb-8 relative">
                     
                     {/* Source */}
-                    <div className={`flex-1 bg-white border border-slate-200 p-6 flex flex-col items-center justify-center transition-all duration-500 rounded-xl ${transferStep >= 1 && transferStep < 5 ? 'ring-2 ring-indigo-400 shadow-md' : 'shadow-sm'}`}>
-                        <Database className="w-12 h-12 text-indigo-500 mb-4" />
-                        <h3 className="font-bold text-lg text-slate-900">MEMORY</h3>
-                        <p className="text-sm text-slate-500 text-center mt-2">Source Component</p>
+                    <div 
+                        className={`flex-1 p-6 flex flex-col items-center justify-center transition-all duration-500 rounded-xl border backdrop-blur-sm ${transferStep >= 1 && transferStep < 5 ? 'ring-2 ring-violet-400 border-violet-500/50 shadow-[0_0_20px_rgba(139,92,246,0.3)]' : 'border-white/10'}`}
+                        style={{ background: 'rgba(255, 255, 255, 0.03)' }}
+                    >
+                        <Database className="w-12 h-12 text-violet-400 mb-4" />
+                        <h3 className="font-bold text-lg text-white">MEMORY</h3>
+                        <p className="text-sm text-slate-400 text-center mt-2">Source Component</p>
                     </div>
 
                     {/* Bus Lanes */}
@@ -145,30 +151,33 @@ export default function BusPage() {
                             name="Address Bus" 
                             desc="Carries address information"
                             borderColor="border-purple-500"
-                            dotColor="bg-purple-500 shadow-sm"
+                            dotColor="bg-purple-400 shadow-[0_0_12px_rgba(192,132,252,0.8)]"
                             isActiveStep={transferStep === 2}
                         />
                         <BusLane 
                             name="Data Bus" 
                             desc="Carries data"
-                            borderColor="border-indigo-500"
-                            dotColor="bg-indigo-500 shadow-sm"
+                            borderColor="border-violet-500"
+                            dotColor="bg-violet-400 shadow-[0_0_12px_rgba(167,139,250,0.8)]"
                             isActiveStep={transferStep === 3}
                         />
                         <BusLane 
                             name="Control Bus" 
                             desc="Carries control signals"
                             borderColor="border-amber-500"
-                            dotColor="bg-amber-500 shadow-sm"
+                            dotColor="bg-amber-400 shadow-[0_0_12px_rgba(251,191,36,0.8)]"
                             isActiveStep={transferStep === 4}
                         />
                     </div>
 
                     {/* Destination */}
-                    <div className={`flex-1 bg-white border border-slate-200 p-6 flex flex-col items-center justify-center transition-all duration-500 rounded-xl ${transferStep === 5 ? 'ring-2 ring-green-400 shadow-md' : 'shadow-sm'}`}>
-                        <Cpu className="w-12 h-12 text-green-500 mb-4" />
-                        <h3 className="font-bold text-lg text-slate-900">REGISTERS</h3>
-                        <p className="text-sm text-slate-500 text-center mt-2">Destination Component</p>
+                    <div 
+                        className={`flex-1 p-6 flex flex-col items-center justify-center transition-all duration-500 rounded-xl border backdrop-blur-sm ${transferStep === 5 ? 'ring-2 ring-emerald-400 border-emerald-500/50 shadow-[0_0_20px_rgba(16,185,129,0.3)]' : 'border-white/10'}`}
+                        style={{ background: 'rgba(255, 255, 255, 0.03)' }}
+                    >
+                        <Cpu className="w-12 h-12 text-emerald-400 mb-4" />
+                        <h3 className="font-bold text-lg text-white">REGISTERS</h3>
+                        <p className="text-sm text-slate-400 text-center mt-2">Destination Component</p>
                     </div>
                 </div>
 
@@ -176,14 +185,21 @@ export default function BusPage() {
                     <button 
                         onClick={startTransfer}
                         disabled={isTransferring}
-                        className="btn-primary whitespace-nowrap bg-[#4f46e5] text-white hover:bg-indigo-700 px-4 py-2 rounded-lg transition-colors"
+                        className="btn-primary whitespace-nowrap bg-violet-600 text-white hover:bg-violet-700 px-5 py-2.5 rounded-xl transition-all shadow-lg shadow-violet-600/30 font-semibold text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         {isTransferring ? 'Transfer in Progress...' : 'Start Transfer'}
                     </button>
                     
                     <div className="flex flex-wrap gap-2 justify-end">
                         {['INITIATING', 'ADDRESS SENT', 'DATA TRANSFERRING', 'CONTROL SIGNAL', 'COMPLETE'].map((status, idx) => (
-                            <span key={status} className={`status-badge px-2 py-1 rounded text-xs font-semibold ${transferStep === idx + 1 ? 'bg-indigo-100 text-indigo-700 border border-indigo-200' : 'bg-slate-100 text-slate-500 border border-transparent'}`}>
+                            <span 
+                                key={status} 
+                                className={`status-badge px-2.5 py-1 rounded-full text-xs font-semibold border ${
+                                    transferStep === idx + 1 
+                                        ? 'bg-violet-500/20 text-violet-300 border-violet-500/40 shadow-[0_0_8px_rgba(139,92,246,0.25)]' 
+                                        : 'bg-white/5 text-slate-500 border-white/5'
+                                }`}
+                            >
                                 {status}
                             </span>
                         ))}
@@ -192,36 +208,40 @@ export default function BusPage() {
             </section>
 
             {/* Section 2: Bus Arbitration */}
-            <section className="bg-white border-slate-200 shadow-sm border p-6 rounded-xl">
-                <h2 className="text-xl font-bold text-slate-900 mb-6">Bus Arbitration</h2>
+            <section 
+                className="p-6 rounded-xl border backdrop-blur-md"
+                style={{ background: 'rgba(15, 18, 35, 0.8)', border: '1px solid rgba(255, 255, 255, 0.08)' }}
+            >
+                <h2 className="text-xl font-bold text-white mb-6">Bus Arbitration</h2>
                 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Requesters */}
                     <div className="lg:col-span-1 space-y-4">
-                        <h3 className="font-semibold text-slate-600 mb-4">System Components</h3>
+                        <h3 className="font-semibold text-slate-400 mb-4">System Components</h3>
                         {requesters.map((req, i) => (
                             <motion.div 
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: i * 0.1 }}
                                 key={req.id} 
-                                className={`bg-white border p-4 rounded-xl shadow-sm transition-all duration-300 ${
-                                    req.state === 'REQUESTING' ? 'border-amber-400 ring-1 ring-amber-400' :
-                                    req.state === 'GRANTED' ? 'border-green-400 ring-1 ring-green-400' :
-                                    req.state === 'WAITING' ? 'border-red-300 opacity-80' :
-                                    arbitrationState !== 'BUS AVAILABLE' && req.state === 'IDLE' ? 'border-slate-200 opacity-50' : 'border-slate-200'
+                                className={`p-4 rounded-xl border transition-all duration-300 backdrop-blur-sm ${
+                                    req.state === 'REQUESTING' ? 'border-amber-400/60 ring-1 ring-amber-400/40 shadow-[0_0_15px_rgba(251,191,36,0.15)]' :
+                                    req.state === 'GRANTED' ? 'border-emerald-400/60 ring-1 ring-emerald-400/40 shadow-[0_0_15px_rgba(52,211,153,0.15)]' :
+                                    req.state === 'WAITING' ? 'border-rose-400/40 opacity-80' :
+                                    arbitrationState !== 'BUS AVAILABLE' && req.state === 'IDLE' ? 'border-white/5 opacity-50' : 'border-white/10'
                                 }`}
+                                style={{ background: 'rgba(255, 255, 255, 0.03)' }}
                             >
                                 <div className="flex items-center justify-between mb-4">
                                     <div className="flex items-center space-x-3">
-                                        <req.icon className="w-6 h-6 text-slate-500" />
-                                        <span className="font-bold text-slate-900">{req.name}</span>
+                                        <req.icon className="w-6 h-6 text-slate-400" />
+                                        <span className="font-bold text-white">{req.name}</span>
                                     </div>
-                                    <span className={`text-xs font-bold px-2 py-1 rounded ${
-                                        req.state === 'REQUESTING' ? 'bg-amber-100 text-amber-700' :
-                                        req.state === 'GRANTED' ? 'bg-green-100 text-green-700' :
-                                        req.state === 'WAITING' ? 'bg-red-100 text-red-700' :
-                                        'bg-slate-100 text-slate-600'
+                                    <span className={`text-xs font-bold px-2.5 py-1 rounded-full border ${
+                                        req.state === 'REQUESTING' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
+                                        req.state === 'GRANTED' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
+                                        req.state === 'WAITING' ? 'bg-rose-500/10 text-rose-400 border-rose-500/20' :
+                                        'bg-white/5 text-slate-400 border-white/5'
                                     }`}>
                                         {req.state}
                                     </span>
@@ -229,17 +249,26 @@ export default function BusPage() {
                                 
                                 <div className="flex justify-end gap-2">
                                     {req.state === 'IDLE' && (
-                                        <button onClick={() => handleRequest(req.id)} className="btn-small bg-slate-200 hover:bg-slate-300 text-slate-800 px-3 py-1 rounded text-sm transition-colors">
+                                        <button 
+                                            onClick={() => handleRequest(req.id)} 
+                                            className="btn-small bg-white/10 hover:bg-white/20 text-slate-200 border border-white/10 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors"
+                                        >
                                             Request Bus
                                         </button>
                                     )}
                                     {req.state === 'REQUESTING' && (
-                                        <button onClick={() => handleGrant(req.id)} className="btn-small bg-amber-500 hover:bg-amber-600 text-white px-3 py-1 rounded text-sm transition-colors">
+                                        <button 
+                                            onClick={() => handleGrant(req.id)} 
+                                            className="btn-small bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors"
+                                        >
                                             Grant Bus
                                         </button>
                                     )}
                                     {req.state === 'GRANTED' && arbitrationState === 'BUS RELEASED' && (
-                                        <button onClick={() => handleRelease(req.id)} className="btn-small bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm transition-colors">
+                                        <button 
+                                            onClick={() => handleRelease(req.id)} 
+                                            className="btn-small bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors"
+                                        >
                                             Release Bus
                                         </button>
                                     )}
@@ -250,8 +279,11 @@ export default function BusPage() {
 
                     {/* Central Bus Display */}
                     <div className="lg:col-span-2 flex items-center justify-center">
-                        <div className="bg-slate-50 border border-slate-200 rounded-xl p-8 w-full max-w-md flex flex-col items-center shadow-sm">
-                            <h3 className="font-bold text-lg mb-8 text-slate-700">Central Bus State</h3>
+                        <div 
+                            className="border rounded-xl p-8 w-full max-w-md flex flex-col items-center backdrop-blur-md shadow-xl"
+                            style={{ background: 'rgba(10, 14, 28, 0.7)', border: '1px solid rgba(255, 255, 255, 0.08)' }}
+                        >
+                            <h3 className="font-bold text-lg mb-8 text-slate-300">Central Bus State</h3>
                             
                             <div className="flex flex-col items-center space-y-4 relative w-full">
                                 {['BUS AVAILABLE', 'BUS REQUEST', 'BUS GRANTED', 'DATA TRANSFER', 'BUS RELEASED'].map((stateName, idx, arr) => (
@@ -265,15 +297,15 @@ export default function BusPage() {
                                             }}
                                             className={`w-full py-3 px-6 rounded-lg text-center font-bold border transition-colors duration-300 ${
                                                 arbitrationState === stateName 
-                                                    ? 'bg-indigo-50 border-indigo-300 text-indigo-700 shadow-sm'
-                                                    : 'bg-white border-slate-200 text-slate-500'
+                                                    ? 'bg-violet-500/20 border-violet-500/40 text-violet-300 shadow-[0_0_15px_rgba(139,92,246,0.25)]'
+                                                    : 'bg-white/[0.02] border-white/10 text-slate-500'
                                             }`}
                                         >
                                             {stateName}
                                         </motion.div>
                                         {idx < arr.length - 1 && (
-                                            <div className="text-slate-300 my-1">
-                                                <ArrowDown className={`w-6 h-6 ${arbitrationState === arr[idx+1] ? 'text-indigo-500' : ''}`} />
+                                            <div className="text-slate-600 my-1">
+                                                <ArrowDown className={`w-6 h-6 ${arbitrationState === arr[idx+1] ? 'text-violet-400' : ''}`} />
                                             </div>
                                         )}
                                     </React.Fragment>
@@ -285,15 +317,18 @@ export default function BusPage() {
             </section>
 
             {/* Event Console - KEPT DARK */}
-            <section className="bg-white border-slate-200 shadow-sm border p-4 rounded-xl">
-                <h3 className="font-semibold text-slate-700 mb-2">Event Console</h3>
-                <div className="event-console h-48 overflow-y-auto bg-slate-900 text-slate-300 p-4 rounded-lg font-mono text-sm border border-slate-700">
+            <section 
+                className="p-4 rounded-xl border backdrop-blur-md"
+                style={{ background: 'rgba(15, 18, 35, 0.8)', border: '1px solid rgba(255, 255, 255, 0.08)' }}
+            >
+                <h3 className="font-semibold text-slate-300 mb-2">Event Console</h3>
+                <div className="event-console h-48 overflow-y-auto bg-slate-950/90 text-slate-300 p-4 rounded-lg font-mono text-sm border border-white/10">
                     {logsToDisplay.length > 0 ? logsToDisplay.map((log, idx) => (
                         <motion.div 
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             key={idx} 
-                            className="text-green-400 mb-1 flex"
+                            className="text-emerald-400 mb-1 flex"
                         >
                             <span className="text-slate-500 mr-3 shrink-0">[{log.time || new Date().toISOString().split('T')[1].slice(0,8)}]</span>
                             <span>{log.message || log}</span>
@@ -309,12 +344,15 @@ export default function BusPage() {
 
 const BusLane = ({ name, desc, borderColor, dotColor, isActiveStep }) => {
     return (
-        <div className={`bg-white border-x border-b border-slate-200 shadow-sm p-4 relative overflow-hidden border-t-2 ${borderColor} rounded-xl h-20 flex flex-col justify-center`}>
-             <h4 className="text-slate-900 font-semibold z-10">{name}</h4>
-             <p className="text-xs text-slate-500 z-10">{desc}</p>
+        <div 
+            className={`border-x border-b border-white/10 p-4 relative overflow-hidden border-t-2 ${borderColor} rounded-xl h-20 flex flex-col justify-center backdrop-blur-md shadow-sm`}
+            style={{ background: 'rgba(10, 14, 28, 0.7)' }}
+        >
+             <h4 className="text-white font-semibold z-10">{name}</h4>
+             <p className="text-xs text-slate-400 z-10">{desc}</p>
              
              <div className="absolute inset-0 flex items-center px-4">
-                 <div className="w-full h-0.5 bg-slate-200" />
+                 <div className="w-full h-0.5 bg-white/10" />
              </div>
 
              {isActiveStep && (

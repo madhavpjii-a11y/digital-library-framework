@@ -16,17 +16,20 @@ import BookManagementPage from './pages/BookManagementPage';
 export default function App() {
   return (
     <SimulationProvider>
-      <div className="min-h-screen relative">
-        {/* Decorative gradient orbs */}
+      <div className="min-h-screen relative bg-[#0b0d17]">
+        {/* Animated gradient orbs */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-gradient-to-br from-violet-200/40 to-indigo-200/30 blur-3xl" />
-          <div className="absolute top-1/3 -left-40 w-80 h-80 rounded-full bg-gradient-to-br from-blue-200/30 to-cyan-200/20 blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-72 h-72 rounded-full bg-gradient-to-br from-pink-200/20 to-rose-200/15 blur-3xl" />
+          <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full opacity-30" style={{background: 'radial-gradient(circle, rgba(124,58,237,0.4) 0%, transparent 70%)', animation: 'float 8s ease-in-out infinite'}} />
+          <div className="absolute top-1/2 -left-40 w-[400px] h-[400px] rounded-full opacity-20" style={{background: 'radial-gradient(circle, rgba(6,182,212,0.4) 0%, transparent 70%)', animation: 'float 10s ease-in-out infinite 2s'}} />
+          <div className="absolute bottom-20 right-1/4 w-[350px] h-[350px] rounded-full opacity-20" style={{background: 'radial-gradient(circle, rgba(236,72,153,0.3) 0%, transparent 70%)', animation: 'float 12s ease-in-out infinite 4s'}} />
+          {/* Subtle grid overlay */}
+          <div className="absolute inset-0 bg-grid opacity-50" />
         </div>
         <Navbar />
         <main className="pt-16 relative z-10">
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<BookManagementPage />} />
+            <Route path="/home" element={<HomePage />} />
             <Route path="/architecture" element={<ArchitecturePage />} />
             <Route path="/memory" element={<MemoryPage />} />
             <Route path="/bus" element={<BusPage />} />
@@ -36,7 +39,7 @@ export default function App() {
             <Route path="/simulations" element={<SimulationsPage />} />
             <Route path="/concepts" element={<ConceptsPage />} />
             <Route path="/about" element={<AboutPage />} />
-            <Route path="/books" element={<BookManagementPage />} />
+            <Route path="/books" element={<BookManagementPage />} /> {/* Also accessible via /books */}
           </Routes>
         </main>
       </div>

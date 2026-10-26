@@ -24,32 +24,32 @@ const AboutPage = () => {
       title: 'Interactive Simulations',
       description: 'Run step-by-step simulations of digital library transactions as they move through computer memory and processing units.',
       icon: PlayCircle,
-      color: '#4f46e5'
+      color: '#8b5cf6'
     },
     {
       title: 'Visual Pipeline',
       description: 'Observe the flow of data packets moving from main memory across the system bus into CPU registers.',
       icon: Eye,
-      color: '#9333ea'
+      color: '#a855f7'
     },
     {
       title: 'Real-time Processing',
       description: 'Watch the ALU process book loans and returns with real-time updates to register states and memory cells.',
       icon: Cpu,
-      color: '#16a34a'
+      color: '#10b981'
     },
     {
       title: 'Educational Platform',
       description: 'A conceptual framework designed to help visualize complex computer architecture concepts using a familiar library analogy.',
       icon: BookOpen,
-      color: '#ca8a04'
+      color: '#f59e0b'
     }
   ];
 
   const pipelineFlow = ['MEMORY', 'BUS', 'REGISTERS', 'PROCESSOR', 'ALU', 'RESULT'];
 
   return (
-    <div className="min-h-screen text-slate-900 pt-24 px-4 pb-12 relative bg-slate-50">
+    <div className="min-h-screen text-slate-200 pt-24 px-4 pb-12 relative">
       <div className="max-w-4xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -57,20 +57,21 @@ const AboutPage = () => {
           transition={{ duration: 0.5 }}
           className="mb-8"
         >
-          <h1 className="section-title flex items-center gap-3 text-3xl font-bold text-slate-900 mb-2">
-            <Info className="text-[#4f46e5]" />
+          <h1 className="section-title flex items-center gap-3 text-3xl font-bold text-white mb-2">
+            <Info className="text-violet-400" />
             About This Framework
           </h1>
-          <div className="w-20 h-1 bg-gradient-to-r from-[#4f46e5] to-transparent rounded-full" />
+          <div className="w-20 h-1 bg-gradient-to-r from-violet-500 to-transparent rounded-full" />
         </motion.div>
 
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="bg-white p-6 md:p-10 rounded-2xl mb-10 border border-slate-200 shadow-sm"
+          className="p-6 md:p-10 rounded-2xl mb-10 border border-white/10 backdrop-blur-xl shadow-2xl"
+          style={{ background: 'rgba(15, 18, 35, 0.8)', border: '1px solid rgba(255, 255, 255, 0.08)' }}
         >
-          <motion.p variants={itemVariants} className="text-xl text-slate-700 leading-relaxed mb-10">
+          <motion.p variants={itemVariants} className="text-xl text-slate-300 leading-relaxed mb-10 font-light">
             This project presents an interactive conceptual framework for understanding how digital-library information can be stored, transferred and processed using fundamental computer-architecture concepts.
           </motion.p>
 
@@ -78,14 +79,22 @@ const AboutPage = () => {
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <motion.div key={index} variants={itemVariants} className="bg-slate-50 p-5 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors shadow-sm">
+                <motion.div 
+                  key={index} 
+                  variants={itemVariants} 
+                  className="p-5 rounded-xl border border-white/10 hover:border-violet-500/30 transition-all duration-300 hover:scale-[1.02] backdrop-blur-md"
+                  style={{ background: 'rgba(255, 255, 255, 0.03)' }}
+                >
                   <div className="flex items-center gap-4 mb-3">
-                    <div className="p-2 rounded-lg bg-white shadow-sm border border-slate-100" style={{ color: feature.color }}>
+                    <div 
+                      className="p-2.5 rounded-lg border border-white/10" 
+                      style={{ backgroundColor: `${feature.color}15`, color: feature.color }}
+                    >
                       <Icon size={24} />
                     </div>
-                    <h3 className="font-bold text-lg text-slate-900">{feature.title}</h3>
+                    <h3 className="font-bold text-lg text-white">{feature.title}</h3>
                   </div>
-                  <p className="text-slate-600 text-sm leading-relaxed">
+                  <p className="text-slate-400 text-sm leading-relaxed">
                     {feature.description}
                   </p>
                 </motion.div>
@@ -98,17 +107,18 @@ const AboutPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.5 }}
-          className="bg-white p-6 rounded-xl flex flex-col items-center border border-slate-200 shadow-sm"
+          className="p-6 rounded-xl flex flex-col items-center border border-white/10 backdrop-blur-md shadow-xl"
+          style={{ background: 'rgba(15, 18, 35, 0.8)', border: '1px solid rgba(255, 255, 255, 0.08)' }}
         >
-          <h3 className="text-sm uppercase tracking-widest text-slate-500 mb-6 font-semibold">Data Flow Pipeline</h3>
+          <h3 className="text-sm uppercase tracking-widest text-slate-400 mb-6 font-semibold">Data Flow Pipeline</h3>
           <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4">
             {pipelineFlow.map((stage, index) => (
               <React.Fragment key={stage}>
-                <div className="px-4 py-2 rounded-lg bg-indigo-50 border border-indigo-100 text-indigo-700 font-mono text-xs md:text-sm">
+                <div className="px-4 py-2 rounded-lg bg-violet-500/10 border border-violet-500/20 text-violet-300 font-mono text-xs md:text-sm shadow-[0_0_10px_rgba(139,92,246,0.15)]">
                   {stage}
                 </div>
                 {index < pipelineFlow.length - 1 && (
-                  <ArrowRight size={16} className="text-slate-400" />
+                  <ArrowRight size={16} className="text-slate-600" />
                 )}
               </React.Fragment>
             ))}

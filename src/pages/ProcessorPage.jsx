@@ -22,22 +22,22 @@ const ProcessorPage = () => {
     {
       title: 'Fetch-Decode-Execute Cycle',
       description: 'The fundamental operational process of a computer, where instructions are fetched from memory, decoded, and then executed.',
-      icon: <Activity className="w-6 h-6 text-indigo-500" />
+      icon: <Activity className="w-6 h-6 text-violet-400" />
     },
     {
       title: 'Clock and Control Signals',
       description: 'The clock synchronizes all components, while control signals direct the flow of data through the datapath and ALU.',
-      icon: <Clock className="w-6 h-6 text-emerald-500" />
+      icon: <Clock className="w-6 h-6 text-emerald-400" />
     },
     {
       title: 'Instruction Format',
       description: 'Binary encoding that specifies the operation to be performed and the registers or memory locations involved.',
-      icon: <GitCommit className="w-6 h-6 text-purple-500" />
+      icon: <GitCommit className="w-6 h-6 text-purple-400" />
     },
     {
       title: 'Datapath Organization',
       description: 'The interconnected components (ALU, registers, buses) that perform data processing operations.',
-      icon: <Server className="w-6 h-6 text-blue-500" />
+      icon: <Server className="w-6 h-6 text-blue-400" />
     }
   ];
 
@@ -86,9 +86,9 @@ const ProcessorPage = () => {
   };
 
   const getStageColor = (index) => {
-    if (index < processingStage) return 'border-emerald-500 bg-emerald-50 text-emerald-700'; // Completed
-    if (index === processingStage && isProcessing) return 'border-amber-500 bg-amber-50 text-amber-700 shadow-[0_0_15px_rgba(245,158,11,0.2)]'; // Processing
-    return 'border-slate-200 bg-slate-50 text-slate-500'; // Upcoming
+    if (index < processingStage) return 'border-emerald-500/40 bg-emerald-500/15 text-emerald-300'; // Completed
+    if (index === processingStage && isProcessing) return 'border-amber-500/50 bg-amber-500/20 text-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.3)]'; // Processing
+    return 'border-white/10 bg-white/5 text-slate-400'; // Upcoming
   };
 
   // Animation variants
@@ -131,14 +131,14 @@ const ProcessorPage = () => {
   }
 
   return (
-    <div className="space-y-8 p-6 max-w-7xl mx-auto text-slate-900">
+    <div className="space-y-8 p-6 max-w-7xl mx-auto text-white">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div>
-          <h1 className="text-4xl font-bold text-indigo-700 flex items-center gap-3">
-            <Cpu className="w-10 h-10 text-indigo-500" />
-            Processor Simulation
+          <h1 className="text-4xl font-bold text-white flex items-center gap-3">
+            <Cpu className="w-10 h-10 text-violet-400" />
+            <span className="gradient-text">Processor Simulation</span>
           </h1>
-          <p className="text-slate-600 mt-2">Visualize the internal operations and datapath of a digital processor.</p>
+          <p className="text-slate-400 mt-2">Visualize the internal operations and datapath of a digital processor.</p>
         </div>
       </div>
 
@@ -146,59 +146,68 @@ const ProcessorPage = () => {
         
         {/* Section 1: Processor Visualization */}
         <div className="lg:col-span-1">
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 h-full flex flex-col items-center relative overflow-hidden">
-            <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-slate-800">
-              <CircuitBoard className="w-5 h-5 text-indigo-500" />
+          <div 
+            className="rounded-2xl border border-white/10 p-6 h-full flex flex-col items-center relative overflow-hidden backdrop-blur-md"
+            style={{ background: 'rgba(15,18,35,0.8)' }}
+          >
+            <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-white">
+              <CircuitBoard className="w-5 h-5 text-violet-400" />
               Processor Architecture
             </h2>
             
             {/* The Chip Container */}
-            <div className="relative w-full flex-grow flex flex-col items-center justify-between border-2 border-slate-200 rounded-xl p-4 bg-slate-50">
+            <div 
+              className="relative w-full flex-grow flex flex-col items-center justify-between border border-white/10 rounded-xl p-4 backdrop-blur-sm"
+              style={{ background: 'rgba(15,18,35,0.5)' }}
+            >
               
               {/* Circuit traces decoration */}
-              <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, #4f46e5 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
+              <div 
+                className="absolute inset-0 opacity-15 pointer-events-none" 
+                style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(139,92,246,0.3) 1px, transparent 1px)', backgroundSize: '20px 20px' }}
+              />
 
               {/* INPUT */}
-              <div className="bg-blue-50 border border-blue-200 p-3 rounded-lg w-40 text-center z-10 shadow-sm">
-                <Database className="w-6 h-6 mx-auto mb-1 text-blue-500" />
-                <span className="text-sm font-medium text-blue-800">INPUT</span>
+              <div className="bg-blue-500/10 border border-blue-500/30 p-3 rounded-xl w-40 text-center z-10 backdrop-blur-sm">
+                <Database className="w-6 h-6 mx-auto mb-1 text-blue-400" />
+                <span className="text-sm font-medium text-blue-300">INPUT</span>
               </div>
               
-              <div className="h-8 w-px bg-slate-300 connector-line z-0"></div>
+              <div className="h-8 w-px bg-violet-500/30 connector-line z-0"></div>
               
               {/* Internal layout */}
               <div className="flex w-full justify-around items-center z-10 relative">
                 {/* REGISTERS */}
-                <div className="bg-purple-50 border border-purple-200 rounded-lg p-3 w-28 text-center flex flex-col gap-2 shadow-sm">
-                  <span className="text-xs font-medium mb-1 text-purple-800">REGISTERS</span>
-                  <div className="register-box p-1 text-xs bg-white border border-slate-200 rounded text-slate-700">R1</div>
-                  <div className="register-box p-1 text-xs bg-white border border-slate-200 rounded text-slate-700">R2</div>
+                <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-3 w-28 text-center flex flex-col gap-2 backdrop-blur-sm">
+                  <span className="text-xs font-medium mb-1 text-purple-300">REGISTERS</span>
+                  <div className="register-box p-1 text-xs bg-white/5 border border-white/10 rounded-lg text-slate-200">R1</div>
+                  <div className="register-box p-1 text-xs bg-white/5 border border-white/10 rounded-lg text-slate-200">R2</div>
                 </div>
                 
                 {/* PROCESSOR CORE */}
-                <div className={`p-4 w-32 h-32 rounded-full flex flex-col items-center justify-center text-center transition-all duration-500 shadow-sm ${isProcessing && processingStage === 2 ? 'bg-indigo-100 border-2 border-indigo-400 shadow-[0_0_20px_rgba(79,70,229,0.2)] scale-110' : 'bg-white border-2 border-slate-200'}`}>
-                  <Cpu className="w-8 h-8 text-indigo-500 mb-1" />
-                  <span className="text-sm font-bold text-slate-800">CORE</span>
+                <div className={`p-4 w-32 h-32 rounded-full flex flex-col items-center justify-center text-center transition-all duration-500 ${isProcessing && processingStage === 2 ? 'bg-violet-500/25 border-2 border-violet-400 shadow-[0_0_25px_rgba(139,92,246,0.4)] scale-110' : 'bg-white/5 border-2 border-white/10'}`}>
+                  <Cpu className="w-8 h-8 text-violet-400 mb-1" />
+                  <span className="text-sm font-bold text-white">CORE</span>
                 </div>
                 
                 {/* ALU */}
-                <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 w-28 text-center shadow-sm">
-                  <Calculator className="w-6 h-6 mx-auto mb-1 text-emerald-500" />
-                  <span className="text-xs font-medium text-emerald-800">ALU</span>
+                <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-3 w-28 text-center backdrop-blur-sm">
+                  <Calculator className="w-6 h-6 mx-auto mb-1 text-emerald-400" />
+                  <span className="text-xs font-medium text-emerald-300">ALU</span>
                 </div>
               </div>
               
-              <div className="h-8 w-px bg-slate-300 connector-line z-0"></div>
+              <div className="h-8 w-px bg-violet-500/30 connector-line z-0"></div>
 
               {/* RESULT */}
-              <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 w-40 text-center z-10 shadow-sm">
-                <HardDrive className="w-6 h-6 mx-auto mb-1 text-amber-500" />
-                <span className="text-sm font-medium text-amber-800">RESULT</span>
+              <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-3 w-40 text-center z-10 backdrop-blur-sm">
+                <HardDrive className="w-6 h-6 mx-auto mb-1 text-amber-400" />
+                <span className="text-sm font-medium text-amber-300">RESULT</span>
               </div>
               
               {/* Animated Data Packet */}
               <motion.div 
-                className="absolute w-6 h-6 bg-indigo-500 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.5)] z-20 flex items-center justify-center"
+                className="absolute w-6 h-6 bg-violet-500 rounded-full shadow-[0_0_15px_rgba(139,92,246,0.8)] z-20 flex items-center justify-center"
                 animate={{ 
                   top: packetY,
                   left: `calc(50% - 12px + ${packetX})`,
@@ -215,17 +224,24 @@ const ProcessorPage = () => {
 
         {/* Section 2: Processing States Simulation */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+          <div 
+            className="rounded-2xl border border-white/10 p-6 backdrop-blur-md"
+            style={{ background: 'rgba(15,18,35,0.8)' }}
+          >
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-semibold text-slate-800">Execution Pipeline</h2>
+              <h2 className="text-2xl font-semibold text-white">Execution Pipeline</h2>
               <div className="flex gap-3">
-                <button onClick={resetProcessing} className="px-4 py-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium transition-colors flex items-center gap-2">
-                   Reset
+                <button 
+                  onClick={resetProcessing} 
+                  className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:bg-white/10 hover:text-white font-medium transition-colors flex items-center gap-2"
+                >
+                  <RotateCcw className="w-4 h-4" />
+                  Reset
                 </button>
                 <button 
                   onClick={startProcessing} 
                   disabled={isProcessing}
-                  className={`px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 font-medium transition-colors flex items-center gap-2 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`btn-primary px-5 py-2.5 rounded-xl font-medium transition-all flex items-center gap-2 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                   <Activity className="w-4 h-4" />
                   {isProcessing ? 'Processing...' : 'Start Processing'}
@@ -236,7 +252,7 @@ const ProcessorPage = () => {
             {/* Stages Progress */}
             <div className="relative mb-12 mt-8">
               {/* Connecting line background */}
-              <div className="absolute top-1/2 left-0 w-full h-1 bg-slate-200 -translate-y-1/2 z-0"></div>
+              <div className="absolute top-1/2 left-0 w-full h-1 bg-white/10 -translate-y-1/2 z-0"></div>
               
               <div className="flex justify-between relative z-10">
                 {stages.map((stage, idx) => (
@@ -244,11 +260,11 @@ const ProcessorPage = () => {
                     <motion.div 
                       initial={{ scale: 0.8 }}
                       animate={{ scale: idx === processingStage && isProcessing ? 1.2 : 1 }}
-                      className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300 bg-white ${getStageColor(idx)}`}
+                      className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300 font-bold ${getStageColor(idx)}`}
                     >
                       {idx + 1}
                     </motion.div>
-                    <span className={`text-xs text-center mt-3 font-medium transition-colors ${idx === processingStage ? 'text-amber-600' : 'text-slate-500'}`}>
+                    <span className={`text-xs text-center mt-3 font-medium transition-colors ${idx === processingStage ? 'text-amber-400 font-semibold' : 'text-slate-400'}`}>
                       {stage}
                     </span>
                   </div>
@@ -257,15 +273,18 @@ const ProcessorPage = () => {
             </div>
 
             {/* Current Stage Display */}
-            <div className="bg-slate-50 rounded-lg p-6 border border-slate-200 text-center mb-6 min-h-[120px] flex flex-col justify-center items-center">
-               <h3 className="text-slate-500 text-sm uppercase tracking-wider mb-2">Current Status</h3>
-               <div className="text-2xl font-bold text-indigo-700">
+            <div 
+              className="rounded-xl p-6 border border-white/10 text-center mb-6 min-h-[120px] flex flex-col justify-center items-center backdrop-blur-sm"
+              style={{ background: 'rgba(255,255,255,0.03)' }}
+            >
+               <h3 className="text-slate-400 text-sm uppercase tracking-wider mb-2">Current Status</h3>
+               <div className="text-2xl font-bold text-violet-300">
                   {isProcessing ? stages[processingStage] : (processingComplete ? 'Operation Complete' : 'Awaiting Input')}
                </div>
                {isProcessing && (
-                 <div className="w-full max-w-md h-2 bg-slate-200 rounded-full mt-4 overflow-hidden">
+                 <div className="w-full max-w-md h-2 bg-white/10 rounded-full mt-4 overflow-hidden">
                     <motion.div 
-                      className="h-full bg-indigo-500"
+                      className="h-full bg-gradient-to-r from-violet-500 to-indigo-500"
                       initial={{ width: '0%' }}
                       animate={{ width: '100%' }}
                       transition={{ duration: 1, ease: "linear", repeat: isProcessing ? Infinity : 0 }}
@@ -275,8 +294,8 @@ const ProcessorPage = () => {
             </div>
 
             {/* Event Console */}
-            <div className="bg-slate-900 rounded-lg p-4 font-mono text-sm h-48 overflow-y-auto border border-slate-800">
-              <div className="text-slate-400 mb-2 border-b border-slate-800 pb-1">System Events Log</div>
+            <div className="bg-[#0b0d17] rounded-xl p-4 font-mono text-sm h-48 overflow-y-auto border border-white/10">
+              <div className="text-slate-400 mb-2 border-b border-white/10 pb-1">System Events Log</div>
               {state.logs && state.logs.length > 0 ? (
                 <div className="space-y-1">
                   {state.logs.slice().reverse().map((log, i) => (
@@ -291,7 +310,7 @@ const ProcessorPage = () => {
                   ))}
                 </div>
               ) : (
-                <div className="text-slate-600 italic">No events recorded.</div>
+                <div className="text-slate-500 italic">No events recorded.</div>
               )}
             </div>
           </div>
@@ -300,8 +319,8 @@ const ProcessorPage = () => {
 
       {/* Section 3: Processor Facts */}
       <div>
-        <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2 text-slate-800">
-          <Server className="w-6 h-6 text-indigo-500" />
+        <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2 text-white">
+          <Server className="w-6 h-6 text-violet-400" />
           Architecture Concepts
         </h2>
         <motion.div 
@@ -311,12 +330,17 @@ const ProcessorPage = () => {
           animate="visible"
         >
           {facts.map((fact, index) => (
-            <motion.div key={index} variants={itemVariants} className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-              <div className="bg-slate-50 p-3 rounded-lg w-12 h-12 flex items-center justify-center mb-4 border border-slate-100">
+            <motion.div 
+              key={index} 
+              variants={itemVariants} 
+              className="rounded-2xl border border-white/10 p-6 backdrop-blur-md hover:border-violet-500/30 transition-all duration-300"
+              style={{ background: 'rgba(15,18,35,0.8)' }}
+            >
+              <div className="bg-white/5 p-3 rounded-xl w-12 h-12 flex items-center justify-center mb-4 border border-white/10">
                 {fact.icon}
               </div>
-              <h3 className="text-lg font-medium text-slate-800 mb-2">{fact.title}</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">{fact.description}</p>
+              <h3 className="text-lg font-medium text-white mb-2">{fact.title}</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">{fact.description}</p>
             </motion.div>
           ))}
         </motion.div>
